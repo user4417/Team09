@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Generator\RandomBytesGenerator;
 
 class TeamsTableSeeder extends Seeder
 {
@@ -43,7 +44,7 @@ class TeamsTableSeeder extends Seeder
         return $name[rand(0, count($name)-1)];
     }
     public function generateRandomSp() {
-        $sp = ['打鐵',
+        $Sp = ['打鐵',
         '鋸木',
         '辯護',
         '法術',
@@ -85,16 +86,16 @@ class TeamsTableSeeder extends Seeder
     {
         for ($i=0; $i<25; $i++) {
             $name = $this->generateRandomName();
-            $city = $this->generateRandomCity();
+            $love = rand(0, 10);
             $sp = $this->generateRandomSp();
-            $home = $city . "球場";
+            $easy = rand(0, 10);
             $random_datetime = Carbon::now()->subMinutes(rand(1, 55));
 
             DB::table('teams')->insert([
                 'name' => $name,
-                'zone' => $zone,
-                'city' => $city,
-                'home' => $home,
+                'easy' => $easy,
+                'love' => $love,
+                'sp' => $sp,
                 'created_at' => $random_datetime,
                 'updated_at' => $random_datetime
             ]);
