@@ -1,8 +1,9 @@
 <?php
 
+
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class VillagersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +12,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        
+        //DB::table()->insert([
+        //   'name'
+        //])
         // $this->call(UsersTableSeeder::class);
     }
 }
+?>
