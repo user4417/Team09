@@ -16,8 +16,10 @@ class VillagersController extends Controller
     public function index()
     {
         //
-        //return view('villagers.index');
-        return Villager::all()->toArray();
+        $villager = Villager::all();
+        return view('villagers.index')->with(['villagers'=>$villager,'jb'=>"J Burgers"]);
+        //return Villager::all()->toArray();
+        #return Villager::all()->toArray();
     }
 
     /**
@@ -26,7 +28,7 @@ class VillagersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {return view('villagers.create');
+    {return view('welcome');
         //
     }
 
@@ -48,7 +50,8 @@ class VillagersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {return view('villagers.create',$id);
+    {
+        return view('villagers.show')->with(['data'=>Villager::all()->find($id)]);
         //
     }
 

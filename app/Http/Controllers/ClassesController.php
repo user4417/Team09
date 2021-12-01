@@ -15,8 +15,8 @@ class ClassesController extends Controller
     public function index()
     {
         //
-        //return view('classes.index');
-        return Classes::all()->toArray();
+        return view('classes.index')->with(['classes'=>Classes::all()]);
+        //return Classes::all()->toArray();
     }
 
     /**

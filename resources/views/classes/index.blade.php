@@ -65,14 +65,32 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+    <table border="1">
+        <tr>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-				
-            </div>
-        </div>
+
+
+
+            <th>編號</th>
+            <th>職業名稱</th>
+            <th>輕鬆度</th>
+            <th>榮譽等級</th>
+            <th>特有技能</th>
+            <th>建立時間</th>
+            <th>編輯時間</th>
+        </tr>
+        @foreach($classes as $class)
+            <tr>
+
+                <th>{{$class->id}}</th>
+                <th>{{$class->name}}</th>
+                <th>{{$class->easy}}</th>
+                <th>{{$class->love}}</th>
+                <th>{{$class->sp}}</th>
+                <th>{{$class->created_at}}</th>
+                <th>{{$class->updated_at}}</th>
+            </tr>
+        @endforeach
+    </table>
     </body>
 </html>
