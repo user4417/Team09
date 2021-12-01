@@ -1,7 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class VillagersTableSeeder extends Seeder
@@ -50,9 +52,8 @@ class VillagersTableSeeder extends Seeder
             $plus = $this->generateRandomPlus();
             $random_datetime = Carbon::now()->subMinutes(rand(1, 55));
             DB::table('Villagers')->insert([
-                'id'=>$i,
                 'name' => $name,
-                'cid' => rand(0, 13),
+                'cid' => rand(1, 25),
                 'gender' => $gender,
                 'press' => rand(1,100),
                 'plus' => $plus,

@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Generator\RandomBytesGenerator;
 
 class ClassesTableSeeder extends Seeder
 {
@@ -20,7 +23,7 @@ class ClassesTableSeeder extends Seeder
         }
         return $randomString;
     }
-    public function generateRandomName($i) {
+    public function generateRandomName() {
         $name = [
             '鐵匠',
             '木工',
@@ -38,7 +41,7 @@ class ClassesTableSeeder extends Seeder
             '超商店員',
             '程式作業員',
         ];
-        return $name[$i];
+        return $name[rand(0, count($name)-1)];
     }
     public function generateRandomSp($clas) {
         $Sp = [
@@ -82,15 +85,14 @@ class ClassesTableSeeder extends Seeder
     }
     public function run()
     {
-        for ($i=0; $i<14; $i++) {
-            $name = $this->generateRandomName($i);
+        for ($i=0; $i<25; $i++) {
+            $name = $this->generateRandomName();
             $love = rand(0, 10);
             $sp = $this->generateRandomSp($name);
             $easy = rand(0, 10);
             $random_datetime = Carbon::now()->subMinutes(rand(1, 55));
 
-            DB::table('Classes')->insert([
-                'id'=>$i,
+            DB::table('teams')->insert([
                 'name' => $name,
                 'easy' => $easy,
                 'love' => $love,

@@ -10,7 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers\UserController;
 
+Route::resource('villagers', 'VillagersController');
+Route::resource('classes', 'ClassesController');
 Route::get('/', function () {
     return view('welcome');
 });
