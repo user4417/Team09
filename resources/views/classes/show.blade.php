@@ -72,6 +72,30 @@
                     Laravel
                 </div>
                 <h1><p>Jamming Burgers</p></h1>
+                <table border="1">
+                    <tr>
+
+
+
+
+                        <th>編號</th>
+                        <th>職業名稱</th>
+                        <th>輕鬆度</th>
+                        <th>榮譽等級</th>
+                        <th>特有技能</th>
+                        <th>建立時間</th>
+                        <th>編輯時間</th>
+                    </tr>
+                        <tr>
+
+                            <th>{{$class->id}}</th>
+                            <th>{{$class->name}}</th>
+                            <th>{{$class->easy}}</th>
+                        <th>{{$class->love}}</th>
+                <th>{{$class->sp}}</th>
+                <th>{{$class->created_at}}</th>
+                <th>{{$class->updated_at}}</th>
+                        </tr>
             </div>
         </div>
     </body>

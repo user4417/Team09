@@ -64,7 +64,7 @@
             }
         </style>
     </head>
-    <body>
+    <body> <h3><a href="../villagers">Villagers</a><br/></h3>
     <table border="1">
         <tr>
 
@@ -74,10 +74,10 @@
             <th>編號</th>
             <th>職業名稱</th>
             <th>輕鬆度</th>
-            <th>榮譽等級</th>
+            <!--th>榮譽等級</th>
             <th>特有技能</th>
             <th>建立時間</th>
-            <th>編輯時間</th>
+            <th>編輯時間</th-->
         </tr>
         @foreach($classes as $class)
             <tr>
@@ -85,10 +85,11 @@
                 <th>{{$class->id}}</th>
                 <th>{{$class->name}}</th>
                 <th>{{$class->easy}}</th>
-                <th>{{$class->love}}</th>
+                <th><a href="classes/{{$class->id}}">詳細資料</a> </th>
+                <!--th>{{$class->love}}</th>
                 <th>{{$class->sp}}</th>
                 <th>{{$class->created_at}}</th>
-                <th>{{$class->updated_at}}</th>
+                <th>{{$class->updated_at}}</th-->
             </tr>
         @endforeach
     </table>

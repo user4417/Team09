@@ -64,32 +64,35 @@
             }
         </style>
     </head>
-    <body>
+    <body> <h3> <a href="../classes">Classes</a>  <br/> </h3>
                 <table border="1">
                     <tr>
                         <th>編號</th>
                         <th>名字</th>
                         <th>職業ID</th>
-                        <th>性別</th>
+                        <!--th>性別</th>
                         <th>抗壓性</th>
                         <th>改造程度</th>
                         <th>魔化率</th>
                         <th>含鉛量</th>
                         <th>建立時間</th>
-                        <th>編輯時間</th>
+                        <th>編輯時間</th-->
                     </tr>
                     @foreach($villagers as $vill)
                         <tr>
                             <th>{{$vill->id}}</th>
                             <th>{{$vill->name}}</th>
                             <th>{{$vill->cid}}</th>
-                            <th>{{$vill->gender}}</th>
+                            <th><a href="villagers/{{$vill->id}}">詳細資料</a>
+
+                            </th>
+                            <!--th>{{$vill->gender}}</th>
                             <th>{{$vill->press}}%</th>
                             <th>{{$vill->plus}}</th>
                             <th>{{$vill->monster}}%</th>
                             <th>{{$vill->lead}}%</th>
                             <th>{{$vill->created_at}}</th>
-                            <th>{{$vill->updated_at}}</th>
+                            <th>{{$vill->updated_at}}</th-->
                         </tr>
                     @endforeach
                 </table>

@@ -47,7 +47,8 @@ class ClassesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {return view('classes.show');
+    {
+        return view('classes.show')->with(['class'=>Classes::all()->find($id)]);
         //
 
     }
