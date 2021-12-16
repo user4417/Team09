@@ -26,7 +26,15 @@ class ClassesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {return view('classes.create');
+    {
+        //$lastid = 0;
+        //$classes = Classes::all();
+        //foreach($classes as $cal){
+        //    if ($cal != $lastid) break;
+        //    $lastid++;
+        //}
+
+        return view('classes.create');//->with(['classes'=>Classes::all()]);
         //
     }
 
@@ -37,8 +45,22 @@ class ClassesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {return view('classes.store');
+    {
         //
+        $cname = $request->input('cname');
+        $easy = $request->input('easy');
+        $love = $request->input('love');
+        $sp = $request->input('sp');
+
+        Classes::create(
+            [
+                'name' => $cname,
+                'easy' => $easy,
+                'love' => $love,
+                'sp' => $sp
+            ]
+        );
+        return redirect('classes');
     }
 
     /**
@@ -47,18 +69,9 @@ class ClassesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Request $re)
+    public function show($id)
     {
-        if (isset($re->id)) {
-            $clas = Classes::all()->find($id);
-            $clas->name = $re->cname;
-            $clas->easy = $re->easy;
-            $clas->love = $re->love;
-            $clas->sp = $re->sp;
-            $clas->updated_at = Carbon::now()->subMinutes(rand(1, 55));
-            $clas->save();
-        }
-        return view('classes.show')->with(['class'=>Classes::all()->find($id)]);
+        return view('classes.show')->with(['class'=>Classes::findOrFail($id)]);
         //
 
     }
@@ -71,7 +84,7 @@ class ClassesController extends Controller
      */
     public function edit($id)
     {
-        return view('classes.edit')->with(['class'=>Classes::all()->find($id)]);
+        return view('classes.edit')->with(['class'=>Classes::findOrFail($id)]);
         //return view('classes.edit');
         //
     }
@@ -85,7 +98,16 @@ class ClassesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $class2 = Classes::findOrFail($id);
+
+        $class2->name = $request->input('cname');
+        $class2->easy = $request->input('easy');
+        $class2->love = $request->input('love');
+        $class2->sp = $request->input('sp');
+
+        $class2->save();
+
+        return redirect('classes'); // 觸發 /teams 路由(用 get 方法)
     }
 
     /**
@@ -96,7 +118,9 @@ class ClassesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $class2 = Classes::findOrFail($id);
+        $class2->delete();
+        return redirect('classes');
     }
 
 }

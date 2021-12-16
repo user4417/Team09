@@ -64,7 +64,8 @@
             }
         </style>
     </head>
-    <body> <h3><a href="../villagers">Villagers</a><br/></h3>
+    <body> <h3><a href="/villagers">Villagers</a><br/></h3>
+    <body> <h3><a href="/classes/create">Create</a><br/></h3>
     <table border="1">
         <tr>
 
@@ -74,25 +75,31 @@
             <th>編號</th>
             <th>職業名稱</th>
             <th>輕鬆度</th>
+            <th>操作1</th>
+            <th>操作2</th>
+            <th>操作3</th>
             <!--th>榮譽等級</th>
             <th>特有技能</th>
             <th>建立時間</th>
             <th>編輯時間</th-->
         </tr>
-        @foreach($classes as $class)
-            <tr>
+            @foreach($classes as $class)
+                <tr>
 
-                <th>{{$class->id}}</th>
-                <th>{{$class->name}}</th>
-                <th>{{$class->easy}}</th>
-                <th><a href="/classes/{{$class->id}}">詳細資料</a> </th>
-                <th><a href="/classes/{{$class->id}}/edit">修改</a></th>
-                <!--th>{{$class->love}}</th>
-                <th>{{$class->sp}}</th>
-                <th>{{$class->created_at}}</th>
-                <th>{{$class->updated_at}}</th-->
-            </tr>
-        @endforeach
+                    <th>{{$class->id}}</th>
+                    <th>{{$class->name}}</th>
+                    <th>{{$class->easy}}</th>
+                    <th><a href="/classes/{{$class->id}}">詳細</a></th>
+                    <th><a href="/classes/{{$class->id}}/edit">修改</a></th>
+                    <th>
+                        <form action="/classes/{{ $class->id }}" method="post">
+                            {{ csrf_field() }}
+                            {{ method_field('delete') }}
+                            <input type="submit" value="刪除"/>
+                        </form>
+                    </th>
+                </tr>
+            @endforeach
     </table>
     </body>
 </html>

@@ -72,16 +72,23 @@
                     Laravel
                 </div>
                 <form method="post" action="/villagers/{{$data->id}}" accept-charset="UTF-8">
-                    @csrf
-                    @method('put')
-                    {!! csrf_field() !!}
+                    {{ csrf_field() }}
+                    {{ method_field('put') }}
                     <table border="1">
                         <tr><th>編號</th>
                             <th><input name="id" type="number" readonly value="{{$data->id}}"/></th></tr>
                         <tr><th>名字</th>
                             <th><input name="cname" type="text" value="{{$data->name}}"/></th></tr>
                         <tr><th>職業ID</th>
-                            <th><input name="cid" type="number" value="{{$data->cid}}"/></th></tr>
+                            <th>
+                                <!input name="cid" type="number" value="{{$data->cid}}"/>
+                                <select name="cid">
+                                @foreach($class as $clas)
+                                    <option value="{{$clas->id}}">{{$clas->name}}</option>
+                                @endforeach
+                                </select>
+                            </th>
+                        </tr>
                         <tr><th>性別</th>
                             <th><input name="gender" type="text" value="{{$data->gender}}"/></th></tr>
                         <tr><th>抗壓性</th>

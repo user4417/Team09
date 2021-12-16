@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes;
 use App\Villager;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -29,7 +30,8 @@ class VillagersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {return view('welcome');
+    {
+        return view('villagers.create')->with(['class'=>Classes::all()]);;
         //
     }
 
@@ -40,8 +42,28 @@ class VillagersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {return view('villagers.store');
+    {
         //
+        $cname = $request->input('cname');
+        $cid = $request->input('cid');
+        $gender = $request->input('gender');
+        $press = $request->input('press');
+        $plus = $request->input('plus');
+        $monster = $request->input('monster');
+        $lead = $request->input('lead');
+
+        Villager::create(
+            [
+                'name' => $cname,
+                'cid' => $cid,
+                'gender' => $gender,
+                'press' => $press,
+                'plus' => $plus,
+                'monster' => $monster,
+                'Lead' => $lead,
+            ]
+        );
+        return redirect('villagers'); // 觸發 /teams 路由(用 get 方法)
     }
 
     /**
@@ -52,19 +74,7 @@ class VillagersController extends Controller
      */
     public function show($id, Request $re)
     {
-        if (isset($re->id)) {
-            $vill = Villager::all()->find($id);
-            $vill->name = $re->cname;
-            $vill->cid = $re->cid;
-            $vill->gender = $re->gender;
-            $vill->press = $re->press;
-            $vill->plus = $re->plus;
-            $vill->monster = $re->monster;
-            $vill->lead = $re->lead;
-            $vill->updated_at = Carbon::now()->subMinutes(rand(1, 55));
-            $vill->save();
-        }
-        return view('villagers.show')->with(['data'=>Villager::all()->find($id)]);
+        return view('villagers.show')->with(['data'=>Villager::findOrFail($id)]);
         //
     }
 
@@ -75,7 +85,7 @@ class VillagersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {return view('villagers.edit')->with(['data'=>Villager::all()->find($id)]);
+    {return view('villagers.edit')->with(['data'=>Villager::findOrFail($id),'class'=>Classes::all()]);
         //
     }
 
@@ -87,8 +97,20 @@ class VillagersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {return view('villagers.update');
-        //
+    {
+        $vill = Villager::findOrFail($id);
+
+        $vill->name = $request->input('cname');
+        $vill->cid = $request->input('cid');
+        $vill->gender = $request->input('gender');
+        $vill->press = $request->input('press');
+        $vill->plus = $request->input('plus');
+        $vill->monster = $request->input('monster');
+        $vill->lead = $request->input('lead');
+
+        $vill->save();
+
+        return redirect('villagers'); // 觸發 /teams 路由(用 get 方法)
     }
 
     /**
@@ -99,6 +121,8 @@ class VillagersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vill = Villager::findOrFail($id);
+        $vill->delete();
+        return redirect('villagers');
     }
 }

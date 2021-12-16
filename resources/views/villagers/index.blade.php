@@ -64,12 +64,16 @@
             }
         </style>
     </head>
-    <body> <h3> <a href="../classes">Classes</a>  <br/> </h3>
+    <body> <h3> <a href="/classes">Classes</a>  <br/> </h3>
+    <h3><a href="/villagers/create">Create</a><br/></h3>
                 <table border="1">
                     <tr>
                         <th>編號</th>
                         <th>名字</th>
                         <th>職業ID</th>
+                        <th>操作1</th>
+                        <th>操作2</th>
+                        <th>操作3</th>
                         <!--th>性別</th>
                         <th>抗壓性</th>
                         <th>改造程度</th>
@@ -83,15 +87,13 @@
                             <th>{{$vill->id}}</th>
                             <th>{{$vill->name}}</th>
                             <th>{{$vill->cid}}</th>
-                            <th><a href="/villagers/{{$vill->id}}">詳細資料</a></th>
+                            <th><a href="/villagers/{{$vill->id}}">詳細</a></th>
                             <th><a href="/villagers/{{$vill->id}}/edit">修改</a></th>
-                            <!--th>{{$vill->gender}}</th>
-                            <th>{{$vill->press}}%</th>
-                            <th>{{$vill->plus}}</th>
-                            <th>{{$vill->monster}}%</th>
-                            <th>{{$vill->lead}}%</th>
-                            <th>{{$vill->created_at}}</th>
-                            <th>{{$vill->updated_at}}</th-->
+                            <th><form action="/villagers/{{ $vill->id }}" method="post">
+                                {{ csrf_field() }}
+                                {{ method_field('delete') }}
+                                <input type="submit" value="刪除"/>
+                            </form></th>
                         </tr>
                     @endforeach
                 </table>

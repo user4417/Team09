@@ -4,9 +4,16 @@ namespace App;
 
 
 use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class Classes extends Model
 {
-
-    //protected $table = "myclasses";
+    //use HasFactory;
+    protected $fillable = [
+        'name',
+        'easy',
+        'love',
+        'sp'
+    ];
     //
 }

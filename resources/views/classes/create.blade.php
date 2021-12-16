@@ -71,7 +71,23 @@
                 <div class="title m-b-md">
                     Laravel
                 </div>
-                <p>Create</p>
+
+                <form method="post" action="/classes" accept-charset="UTF-8">
+                    {{ csrf_field() }}
+                    {{ method_field('post') }}
+                    <table border="1">
+                        <tr><th>職業名稱</th>
+                            <th><input name="cname" size="20" required maxlength="20" type="text" value=""/></th></tr>
+                        <tr><th>輕鬆度</th>
+                            <th><input name="easy" type="number" value="" required/></th></tr>
+                        <tr><th>榮譽等級</th>
+                            <th><input name="love" type="number" value="" required/></th></tr>
+                        <tr><th>特有技能</th>
+                            <th><input name="sp" type="text" value="" required/></th></tr>
+                    </table>
+                    <input type="submit" name="test" value="新增" />
+                    <input type="reset" name="test2" value="重新輸入" />
+                </form>
             </div>
         </div>
     </body>

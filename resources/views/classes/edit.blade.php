@@ -72,14 +72,16 @@
                     Laravel
                 </div>
                 <form method="post" action="/classes/{{$class->id}}" accept-charset="UTF-8">
-                    @csrf
-                    @method('put')
-                    {!! csrf_field() !!}
+                    {{ csrf_field() }}
+                    {{ method_field('put') }}
                     <table border="1">
                         <tr><th>編號</th>
                             <th><input name="id" type="number" readonly value="{{$class->id}}"/></th></tr>
                         <tr><th>職業名稱</th>
-                            <th><input name="cname" type="text" value="{{$class->name}}"/></th></tr>
+                            <th>
+                                <input name="cname" type="text" value="{{$class->name}}"/>
+                            </th>
+                        </tr>
                         <tr><th>輕鬆度</th>
                             <th><input name="easy" type="number" value="{{$class->easy}}"/></th></tr>
                         <tr><th>榮譽等級</th>

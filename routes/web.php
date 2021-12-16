@@ -10,13 +10,21 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\VillagersController;
+use App\Http\Controllers\ClassesController;
 
 Route::resource('villagers', 'VillagersController');
 Route::resource('classes', 'ClassesController');
 
-Route::post('classes/{id}', 'ClassesController@show');
-Route::post('villagers/{id}', 'VillagersController@show');
+/*Route::post('classes/{id}', 'App\Http\Controllers\ClassesController@create');
+Route::post('villagers/{id}', 'App\Http\Controllers\VillagersController@create');
+Route::post('classes/{id}', 'App\Http\Controllers\ClassesController@store');
+Route::post('villagers/{id}', 'App\Http\Controllers\VillagersController@store');
+Route::post('classes/{id}', 'App\Http\Controllers\ClassesController@update');
+Route::post('villagers/{id}', 'App\Http\Controllers\VillagersController@update');
+Route::post('classes/{id}', 'App\Http\Controllers\ClassesController@destroy');
+Route::post('villagers/{id}', 'App\Http\Controllers\VillagersController@destroy');*/
 
 
 
