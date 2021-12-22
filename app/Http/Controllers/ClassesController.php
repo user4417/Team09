@@ -20,6 +20,14 @@ class ClassesController extends Controller
         //return Classes::all()->toArray();
     }
 
+
+    public function easy()
+    {
+        //$classes = Classes::easy()->get();
+        //return view('classes.index',['classes'=>$classes]);
+        return redirect('classes.index')->with(['classes'=>Classes::all()]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -20,5 +20,10 @@ class Classes extends Model
         'love',
         'sp'
     ];
+
+    public function scopeEasy($query)
+    {
+        $query->where('easy','>',5)->orderBy('easy');
+    }
     //
 }

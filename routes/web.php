@@ -17,6 +17,12 @@ use App\Http\Controllers\ClassesController;
 Route::resource('villagers', 'VillagersController');
 Route::resource('classes', 'ClassesController');
 
+Route::get('classes/easy',[ClassesController::class,'easy'])->name('classes.easy');
+Route::get('villager/mech1',['VillagersController','mech'])->name('villager.mech1');
+Route::get('villager/mech2',['VillagersController','mech2'])->name('villager.mech2');
+Route::get('villager/mech3',['VillagersController','mech3'])->name('villager.mech3');
+Route::get('villager/mech3',['VillagersController','mech4'])->name('villager.mech4');
+
 /*Route::post('classes/{id}', 'App\Http\Controllers\ClassesController@create');
 Route::post('villagers/{id}', 'App\Http\Controllers\VillagersController@create');
 Route::post('classes/{id}', 'App\Http\Controllers\ClassesController@store');
@@ -29,5 +35,5 @@ Route::post('villagers/{id}', 'App\Http\Controllers\VillagersController@destroy'
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('villagers');
 });

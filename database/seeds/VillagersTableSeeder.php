@@ -56,7 +56,7 @@ class VillagersTableSeeder extends Seeder
                 'press' => rand(1,100),
                 'plus' => $plus,
                 'monster' => rand(1, 100),
-                'Lead' => rand(1, 100),
+                'lead' => rand(1, 100),
                 'created_at' => $random_datetime,
                 'updated_at' => $random_datetime
             ]);

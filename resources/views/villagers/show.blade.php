@@ -97,7 +97,7 @@
                             <th>{{$data->updated_at}}</th>
                         </tr>
                 </table>
-                <a href="/villagers">返回</a>
+                <a href="{{route('villagers.index')}}">返回</a>
             </div>
         </div>
     </body>

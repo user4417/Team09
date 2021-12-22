@@ -18,7 +18,7 @@ class VillagersController extends Controller
     public function index()
     {
         //
-        $villager = Villager::all();
+        $villager = Villager::all()->sortBy('lead',SORT_REGULAR,false);
         return view('villagers.index')->with(['villagers'=>$villager,'jb'=>"J Burgers"]);
         //return Villager::all()->toArray();
         #return Villager::all()->toArray();
@@ -60,7 +60,7 @@ class VillagersController extends Controller
                 'press' => $press,
                 'plus' => $plus,
                 'monster' => $monster,
-                'Lead' => $lead,
+                'lead' => $lead,
             ]
         );
         return redirect('villagers');

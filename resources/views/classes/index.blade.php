@@ -64,8 +64,8 @@
             }
         </style>
     </head>
-    <body> <h3><a href="/villagers">Villagers</a><br/></h3>
-    <body> <h3><a href="/classes/create">Create</a><br/></h3>
+    <body> <h3><a href="{{route('villagers.index')}}">Villagers</a><br/></h3>
+    <body> <h3><a href="{{route('classes.create')}}">Create</a><br/></h3>
     <table border="1">
         <tr>
 
