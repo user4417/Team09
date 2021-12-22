@@ -13,10 +13,12 @@ class CreateVillagersTable extends Migration
      */
     public function up()
     {
+        //if(Schema::hasTable('villagers')) return;
         Schema::create('villagers', function (Blueprint $table) {
-            $table->integer('id')->unsigned()->comment('編號');
+            $table->integer('id',true)->unsigned()->comment('編號');
             $table->string('name',191)->comment('名字');
-            $table->tinyInteger('cid')->unsigned()->comment('職業編號');
+            $table->integer('cid')->unsigned()->comment('職業編號');;
+            $table->foreign('cid')->references('id')->on('classes')->onDelete('cascade');
             $table->string('gender',191)->comment('性別');
             $table->integer('press')->unsigned()->comment('抗壓性');
             $table->string('plus',191)->comment('改造程度');
@@ -24,6 +26,7 @@ class CreateVillagersTable extends Migration
             $table->double('lead')->unsigned()->comment('含鉛量');
             $table->rememberToken();
             $table->timestamps();
+            //$table->engine = 'InnoDB';
         });
     }
 

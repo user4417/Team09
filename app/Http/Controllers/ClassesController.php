@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Classes;
+use App\Models\Classes;
 use Illuminate\Http\Request;
 
 class ClassesController extends Controller
@@ -120,6 +120,7 @@ class ClassesController extends Controller
     {
         $class2 = Classes::findOrFail($id);
         $class2->delete();
+
         return redirect('classes');
     }
 

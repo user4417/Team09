@@ -84,7 +84,7 @@
                                 <!input name="cid" type="number" value="{{$data->cid}}"/>
                                 <select name="cid">
                                 @foreach($class as $clas)
-                                    <option value="{{$clas->id}}">{{$clas->name}}</option>
+                                    <option value="{{$clas->id}}">{{$clas->name}}--{{$clas->id}}</option>
                                 @endforeach
                                 </select>
                             </th>

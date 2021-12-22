@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
@@ -20,4 +20,8 @@ class Villager extends Model
         'Lead',
     ];
     //
+    public function myclass()
+    {
+        return $this->belongsTo('App\Models\Classes', 'cid','id');
+    }
 }

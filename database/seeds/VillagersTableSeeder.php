@@ -31,13 +31,13 @@ class VillagersTableSeeder extends Seeder
         return $name;
     }
     public function generateRandomGender() {
-        $positions = ['人妖','男','女','男男女女'];
+        $positions = ['人妖','男','女','男男女女','特殊性別：'.$this->generateRandomString(rand(0, 13))];
         return $positions[rand(0, count($positions)-1)];
 
     }
 
     public function generateRandomPlus() {
-        $positions = ['無改造', '小幅度', '一般', '大幅度'];
+        $positions = ['無改造', '小幅度', '一般', '大幅度','特殊改造：'.$this->generateRandomString(rand(0, 13))];
         return $positions[rand(0, count($positions)-1)];
 
     }
@@ -50,9 +50,8 @@ class VillagersTableSeeder extends Seeder
             $plus = $this->generateRandomPlus();
             $random_datetime = Carbon::now()->subMinutes(rand(1, 55));
             DB::table('Villagers')->insert([
-                'id'=>$i,
                 'name' => $name,
-                'cid' => rand(0, 13),
+                'cid' => rand(1, 14),
                 'gender' => $gender,
                 'press' => rand(1,100),
                 'plus' => $plus,

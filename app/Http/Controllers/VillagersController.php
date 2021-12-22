@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes;
-use App\Villager;
+use App\Models\Classes;
+use App\Models\Villager;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use function MongoDB\BSON\toJSON;
@@ -63,7 +63,7 @@ class VillagersController extends Controller
                 'Lead' => $lead,
             ]
         );
-        return redirect('villagers'); // 觸發 /teams 路由(用 get 方法)
+        return redirect('villagers');
     }
 
     /**
@@ -110,7 +110,7 @@ class VillagersController extends Controller
 
         $vill->save();
 
-        return redirect('villagers'); // 觸發 /teams 路由(用 get 方法)
+        return redirect('villagers');
     }
 
     /**

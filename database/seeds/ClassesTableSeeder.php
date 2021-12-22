@@ -90,7 +90,6 @@ class ClassesTableSeeder extends Seeder
             $random_datetime = Carbon::now()->subMinutes(rand(1, 55));
 
             DB::table('Classes')->insert([
-                'id'=>$i,
                 'name' => $name,
                 'easy' => $easy,
                 'love' => $love,

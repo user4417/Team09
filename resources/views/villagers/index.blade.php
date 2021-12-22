@@ -86,7 +86,7 @@
                         <tr>
                             <th>{{$vill->id}}</th>
                             <th>{{$vill->name}}</th>
-                            <th>{{$vill->cid}}</th>
+                            <th>{{$vill->myclass->id}}</th>
                             <th><a href="/villagers/{{$vill->id}}">詳細</a></th>
                             <th><a href="/villagers/{{$vill->id}}/edit">修改</a></th>
                             <th><form action="/villagers/{{ $vill->id }}" method="post">
