@@ -15,9 +15,9 @@ class CreateVillagersTable extends Migration
     {
         //if(Schema::hasTable('villagers')) return;
         Schema::create('villagers', function (Blueprint $table) {
-            $table->integer('id',true)->unsigned()->comment('編號');
+            $table->integer('id',true,true)->comment('編號');
             $table->string('name',191)->comment('名字');
-            $table->integer('cid')->unsigned()->comment('職業編號');;
+            $table->integer('cid',false,true)->comment('職業編號');;
             $table->foreign('cid')->references('id')->on('classes')->onDelete('cascade');
             $table->string('gender',191)->comment('性別');
             $table->integer('press')->unsigned()->comment('抗壓性');

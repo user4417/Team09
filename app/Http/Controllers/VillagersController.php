@@ -10,6 +10,24 @@ use function MongoDB\BSON\toJSON;
 
 class VillagersController extends Controller
 {
+    public function lead1()
+    {
+        $villager = Villager::lead('0','25')->get();
+        return view('villagers.index',['villagers'=>$villager,'jb'=>"J Burgers"]);
+    }
+
+    public function lead2()
+    {
+        $villager = Villager::lead('26','50')->get();
+        return view('villagers.index',['villagers'=>$villager,'jb'=>"J Burgers"]);
+    }
+
+    public function lead3()
+    {
+        $villager = Villager::lead('51','100')->get();
+        return view('villagers.index')->with(['villagers'=>$villager,'jb'=>"J Burgers"]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +36,8 @@ class VillagersController extends Controller
     public function index()
     {
         //
-        $villager = Villager::all()->sortBy('lead',SORT_REGULAR,false);
+        //$villager = Villager::all()->sortBy('lead',SORT_REGULAR,false);
+        $villager = Villager::all();
         return view('villagers.index')->with(['villagers'=>$villager,'jb'=>"J Burgers"]);
         //return Villager::all()->toArray();
         #return Villager::all()->toArray();
@@ -31,8 +50,14 @@ class VillagersController extends Controller
      */
     public function create()
     {
-        return view('villagers.create')->with(['class'=>Classes::all()]);;
-        //
+        $unused = array(-1);
+        $villagers= Villager::all();
+        for ($i = 1;$i<=$villagers->last()->id;$i++)
+            if (!isset($villagers->find($i)->id) )
+                array_push($unused,$i);
+
+        return view('villagers.create',['class'=>Classes::all(),'unUsedId'=>$unused]);
+
     }
 
     /**
@@ -44,6 +69,7 @@ class VillagersController extends Controller
     public function store(Request $request)
     {
         //
+        $newid = $request->input('newid');
         $cname = $request->input('cname');
         $cid = $request->input('cid');
         $gender = $request->input('gender');
@@ -51,8 +77,7 @@ class VillagersController extends Controller
         $plus = $request->input('plus');
         $monster = $request->input('monster');
         $lead = $request->input('lead');
-
-        Villager::create(
+        $newvillager=Villager::create(
             [
                 'name' => $cname,
                 'cid' => $cid,
@@ -63,6 +88,10 @@ class VillagersController extends Controller
                 'lead' => $lead,
             ]
         );
+        if ($newid!=-1){
+            $newvillager->id=$newid;
+            $newvillager->save();
+        }
         return redirect('villagers');
     }
 

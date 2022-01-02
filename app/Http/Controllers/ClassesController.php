@@ -8,6 +8,23 @@ use Illuminate\Http\Request;
 
 class ClassesController extends Controller
 {
+
+    public function hard()
+    {
+        $classes = Classes::hard()->get();
+        return view('classes.index',['classes'=>$classes]);
+        //return redirect('classes.index')->with(['classes'=>Classes::all()]);
+        //return redirect('classes');
+    }
+
+    public function easy()
+    {
+        $classes = Classes::easy()->get();
+        return view('classes.index',['classes'=>$classes]);
+        //return redirect('classes.index')->with(['classes'=>Classes::all()]);
+        //return redirect('classes');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,14 +37,6 @@ class ClassesController extends Controller
         //return Classes::all()->toArray();
     }
 
-
-    public function easy()
-    {
-        //$classes = Classes::easy()->get();
-        //return view('classes.index',['classes'=>$classes]);
-        return redirect('classes.index')->with(['classes'=>Classes::all()]);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -35,14 +44,14 @@ class ClassesController extends Controller
      */
     public function create()
     {
-        //$lastid = 0;
-        //$classes = Classes::all();
-        //foreach($classes as $cal){
-        //    if ($cal != $lastid) break;
-        //    $lastid++;
-        //}
+        $unused = array(-1);
+        $classes= Classes::all();
+        for ($i = 1;$i<=$classes->last()->id;$i++)
+            if (!isset($classes->find($i)->id) )
+                array_push($unused,$i);
 
-        return view('classes.create');//->with(['classes'=>Classes::all()]);
+        //echo implode("|",$unused);
+        return view('classes.create',['unUsedId' => $unused]);//->with(['classes'=>Classes::all()]);
         //
     }
 
@@ -55,12 +64,12 @@ class ClassesController extends Controller
     public function store(Request $request)
     {
         //
+        $newid = $request->input('newid');
         $cname = $request->input('cname');
         $easy = $request->input('easy');
         $love = $request->input('love');
         $sp = $request->input('sp');
-
-        Classes::create(
+        $newclass = Classes::create(
             [
                 'name' => $cname,
                 'easy' => $easy,
@@ -68,6 +77,10 @@ class ClassesController extends Controller
                 'sp' => $sp
             ]
         );
+        if ($newid!=-1){
+            $newclass->id=$newid;
+            $newclass->save();
+        }
         return redirect('classes');
     }
 

@@ -65,7 +65,11 @@
         </style>
     </head>
     <body> <h3><a href="{{route('villagers.index')}}">Villagers</a><br/></h3>
-    <body> <h3><a href="{{route('classes.create')}}">Create</a><br/></h3>
+    <h3><a href="{{route('classes.create')}}">Create</a></h3>
+    <a href="{{route('classes.index')}}"> 全部</a>
+    <a href="{{route('classes.easy')}}"> 輕鬆職業</a>
+    <a href="{{route('classes.hard')}}"> 困難職業</a>
+    <br/>
     <table border="1">
         <tr>
 

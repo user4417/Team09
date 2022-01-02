@@ -10,6 +10,8 @@ class Classes extends Model
 {
     //use HasFactory;
     //protected $cascadeDeletes = ['villagers'];
+
+
     public function villagers()
     {
         return $this->hasMany(Villager::class,'cid');
@@ -23,7 +25,10 @@ class Classes extends Model
 
     public function scopeEasy($query)
     {
-        $query->where('easy','>',5)->orderBy('easy');
+        $query->where('easy','>=',5)->orderBy('easy',false);
     }
-    //
+    public function scopeHard($query)
+    {
+        $query->where('easy','<',5)->orderBy('easy');
+    }
 }

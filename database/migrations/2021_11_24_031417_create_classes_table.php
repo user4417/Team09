@@ -15,7 +15,7 @@ class CreateClassesTable extends Migration
     {
         //if(Schema::hasTable('classes')) return;
         Schema::create('classes', function (Blueprint $table) {
-            $table->increments('id')->comment('編號');
+            $table->integer('id',true,true)->comment('編號');
             $table->string('name',100)->comment('職業');
             $table->integer('easy')->comment('輕鬆度');
             $table->integer('love')->comment('榮譽等級');

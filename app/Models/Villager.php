@@ -17,11 +17,16 @@ class Villager extends Model
         'press',
         'plus',
         'monster',
-        'Lead',
+        'lead',
     ];
     //
     public function myclass()
     {
         return $this->belongsTo('App\Models\Classes', 'cid','id');
+    }
+
+    public function scopeLead($query, $x, $y)
+    {
+        $query->where('lead', '>=', $x)->where('lead', '<=', $y)->orderBy('lead');
     }
 }

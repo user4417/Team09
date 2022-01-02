@@ -76,6 +76,19 @@
                     {{ csrf_field() }}
                     {{ method_field('post') }}
                     <table border="1">
+                        <tr>
+                            <th>ID</th>
+                            <th>
+                            <select name="newid" required>
+                                @foreach($unUsedId as $id)
+                                    @if($id==-1)
+                                        <option value="{{$id}}">新建ID</option>
+                                    @else
+                                        <option value="{{$id}}">{{$id}}</option>
+                                    @endif
+                                @endforeach
+                            </select></th>
+                        </tr>
                         <tr><th>職業名稱</th>
                             <th><input name="cname" size="20" required maxlength="20" type="text" value=""/></th></tr>
                         <tr><th>輕鬆度</th>

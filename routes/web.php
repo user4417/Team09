@@ -14,14 +14,20 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VillagersController;
 use App\Http\Controllers\ClassesController;
 
+Route::get('classes/easy','ClassesController@easy')->name('classes.easy');
+Route::get('classes/hard','ClassesController@hard')->name('classes.hard');
+
+Route::get('villagers/lead1','VillagersController@lead1')->name('villagers.lead1');
+Route::get('villagers/lead2','VillagersController@lead2')->name('villagers.lead2');
+Route::get('villagers/lead3','VillagersController@lead3')->name('villagers.lead3');
+
 Route::resource('villagers', 'VillagersController');
 Route::resource('classes', 'ClassesController');
 
-Route::get('classes/easy',[ClassesController::class,'easy'])->name('classes.easy');
-Route::get('villager/mech1',['VillagersController','mech'])->name('villager.mech1');
+/*Route::get('villager/mech1',['VillagersController','mech'])->name('villager.mech1');
 Route::get('villager/mech2',['VillagersController','mech2'])->name('villager.mech2');
 Route::get('villager/mech3',['VillagersController','mech3'])->name('villager.mech3');
-Route::get('villager/mech3',['VillagersController','mech4'])->name('villager.mech4');
+Route::get('villager/mech3',['VillagersController','mech4'])->name('villager.mech4');*/
 
 /*Route::post('classes/{id}', 'App\Http\Controllers\ClassesController@create');
 Route::post('villagers/{id}', 'App\Http\Controllers\VillagersController@create');
