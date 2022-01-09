@@ -14,7 +14,7 @@ class Classes extends Model
 
     public function villagers()
     {
-        return $this->hasMany(Villager::class,'cid');
+        return $this->hasMany(Villagers::class,'cid');
     }
     protected $fillable = [
         'name',
@@ -30,5 +30,10 @@ class Classes extends Model
     public function scopeHard($query)
     {
         $query->where('easy','<',5)->orderBy('easy');
+    }
+
+    public function scopeId($query)
+    {
+        $query->where('id', '>=', '0')->orderBy('id');
     }
 }

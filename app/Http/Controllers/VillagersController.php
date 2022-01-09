@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classes;
-use App\Models\Villager;
+use App\Models\Villagers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use function MongoDB\BSON\toJSON;
@@ -12,19 +12,19 @@ class VillagersController extends Controller
 {
     public function lead1()
     {
-        $villager = Villager::lead('0','25')->get();
+        $villager = Villagers::lead('0','25')->get();
         return view('villagers.index',['villagers'=>$villager,'jb'=>"J Burgers"]);
     }
 
     public function lead2()
     {
-        $villager = Villager::lead('26','50')->get();
+        $villager = Villagers::lead('26','50')->get();
         return view('villagers.index',['villagers'=>$villager,'jb'=>"J Burgers"]);
     }
 
     public function lead3()
     {
-        $villager = Villager::lead('51','100')->get();
+        $villager = Villagers::lead('51','100')->get();
         return view('villagers.index')->with(['villagers'=>$villager,'jb'=>"J Burgers"]);
     }
 
@@ -35,12 +35,8 @@ class VillagersController extends Controller
      */
     public function index()
     {
-        //
-        //$villager = Villager::all()->sortBy('lead',SORT_REGULAR,false);
-        $villager = Villager::all();
+        $villager = Villagers::all();
         return view('villagers.index')->with(['villagers'=>$villager,'jb'=>"J Burgers"]);
-        //return Villager::all()->toArray();
-        #return Villager::all()->toArray();
     }
 
     /**
@@ -50,14 +46,10 @@ class VillagersController extends Controller
      */
     public function create()
     {
-        $unused = array(-1);
-        $villagers= Villager::all();
-        for ($i = 1;$i<=$villagers->last()->id;$i++)
-            if (!isset($villagers->find($i)->id) )
-                array_push($unused,$i);
-
-        return view('villagers.create',['class'=>Classes::all(),'unUsedId'=>$unused]);
-
+        $usedId =Villagers::Id()->get()->pluck('id')->toArray();
+        $lastId =Villagers::all()->last()->id;
+        $diff = array_diff(range(1,$lastId), $usedId);
+        return view('villagers.create',['class'=>Classes::all(),'unUsedId'=>$diff]);
     }
 
     /**
@@ -77,7 +69,7 @@ class VillagersController extends Controller
         $plus = $request->input('plus');
         $monster = $request->input('monster');
         $lead = $request->input('lead');
-        $newvillager=Villager::create(
+        $newvillager=Villagers::create(
             [
                 'name' => $cname,
                 'cid' => $cid,
@@ -103,7 +95,7 @@ class VillagersController extends Controller
      */
     public function show($id, Request $re)
     {
-        return view('villagers.show')->with(['data'=>Villager::findOrFail($id)]);
+        return view('villagers.show')->with(['data'=>Villagers::findOrFail($id)]);
         //
     }
 
@@ -114,7 +106,7 @@ class VillagersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {return view('villagers.edit')->with(['data'=>Villager::findOrFail($id),'class'=>Classes::all()]);
+    {return view('villagers.edit')->with(['data'=>Villagers::findOrFail($id),'class'=>Classes::all()]);
         //
     }
 
@@ -127,7 +119,7 @@ class VillagersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $vill = Villager::findOrFail($id);
+        $vill = Villagers::findOrFail($id);
 
         $vill->name = $request->input('cname');
         $vill->cid = $request->input('cid');
@@ -150,8 +142,73 @@ class VillagersController extends Controller
      */
     public function destroy($id)
     {
-        $vill = Villager::findOrFail($id);
+        $vill = Villagers::findOrFail($id);
         $vill->delete();
         return redirect('villagers');
     }
+
+    public function api_villagers()
+    {
+        return Villagers::all();
+    }
+
+
+    public function api_update(Request $request)
+    {
+        $villager = Villagers::find($request->input('id'));
+        if ($villager == null)
+        {
+            return response()->json([
+                'status' => 0,
+            ]);
+        }
+        $villager->name = $request->input('cname');
+        $villager->cid = $request->input('cid');
+        $villager->gender = $request->input('gender');
+        $villager->press = $request->input('press');
+        $villager->plus = $request->input('plus');
+        $villager->monster = $request->input('monster');
+        $villager->lead = $request->input('lead');
+
+        if ($villager->save())
+        {
+            return response()->json([
+                'status' => 1,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 0,
+            ]);
+        }
+    }
+
+    public function api_delete(Request $request)
+    {
+        $villager = Villagers::find($request->input('id'));
+
+        if ($villager == null)
+        {
+            return response()->json([
+                'status' => 0,
+            ]);
+        }
+
+        if ($villager->delete())
+        {
+            return response()->json([
+                'status' => 1,
+            ]);
+        }
+    }
+    //return Villager::all()->toArray();
+    #return Villager::all()->toArray();
+    /*$unused = array(-1);
+    $villagers= Villager::all();
+    for ($i = 1;$i<=$villagers->last()->id;$i++)
+        if (!isset($villagers->find($i)->id) )
+            array_push($unused,$i);*/
+    //$integerIDs = array_map('intval', explode(',', $usedId));
+    #ECHO $usedId;
+    //
+    //$villager = Villager::all()->sortBy('lead',SORT_REGULAR,false);
 }

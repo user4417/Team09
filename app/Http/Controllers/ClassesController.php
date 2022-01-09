@@ -13,16 +13,12 @@ class ClassesController extends Controller
     {
         $classes = Classes::hard()->get();
         return view('classes.index',['classes'=>$classes]);
-        //return redirect('classes.index')->with(['classes'=>Classes::all()]);
-        //return redirect('classes');
     }
 
     public function easy()
     {
         $classes = Classes::easy()->get();
         return view('classes.index',['classes'=>$classes]);
-        //return redirect('classes.index')->with(['classes'=>Classes::all()]);
-        //return redirect('classes');
     }
 
     /**
@@ -32,9 +28,7 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        //
         return view('classes.index')->with(['classes'=>Classes::all()]);
-        //return Classes::all()->toArray();
     }
 
     /**
@@ -44,15 +38,12 @@ class ClassesController extends Controller
      */
     public function create()
     {
-        $unused = array(-1);
-        $classes= Classes::all();
-        for ($i = 1;$i<=$classes->last()->id;$i++)
-            if (!isset($classes->find($i)->id) )
-                array_push($unused,$i);
 
-        //echo implode("|",$unused);
-        return view('classes.create',['unUsedId' => $unused]);//->with(['classes'=>Classes::all()]);
-        //
+        $usedId =Classes::Id()->get()->pluck('id')->toArray();
+        $lastId =Classes::all()->last()->id;
+        $diff = array_diff(range(1,$lastId), $usedId);
+
+        return view('classes.create',['unUsedId' => $diff,'EasyLevel'=>range(0,10)]);
     }
 
     /**
@@ -63,7 +54,6 @@ class ClassesController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $newid = $request->input('newid');
         $cname = $request->input('cname');
         $easy = $request->input('easy');
@@ -93,8 +83,6 @@ class ClassesController extends Controller
     public function show($id)
     {
         return view('classes.show')->with(['class'=>Classes::findOrFail($id)]);
-        //
-
     }
 
     /**
@@ -105,9 +93,7 @@ class ClassesController extends Controller
      */
     public function edit($id)
     {
-        return view('classes.edit')->with(['class'=>Classes::findOrFail($id)]);
-        //return view('classes.edit');
-        //
+        return view('classes.edit')->with(['class'=>Classes::findOrFail($id),'EasyLevel'=>range(0,10)]);
     }
 
     /**
@@ -145,4 +131,67 @@ class ClassesController extends Controller
         return redirect('classes');
     }
 
+    public function api_classes()
+    {
+        return Classes::all();
+    }
+
+    public function api_update(Request $request)
+    {
+        $class1 = Classes::find($request->input('id'));
+        if ($class1 == null)
+        {
+            return response()->json([
+                'status' => 0,
+            ]);
+        }
+
+        $class1->name = $request->input('cname');
+        $class1->easy = $request->input('easy');
+        $class1->love = $request->input('love');
+        $class1->sp = $request->input('sp');
+        if ($class1->save())
+        {
+            return response()->json([
+                'status' => 1,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 0,
+            ]);
+        }
+    }
+
+    public function api_delete(Request $request)
+    {
+        $class1 = Classes::find($request->input('id'));
+
+        if ($class1 == null)
+        {
+            return response()->json([
+                'status' => 0,
+            ]);
+        }
+
+        if ($class1->delete())
+        {
+            return response()->json([
+                'status' => 1,
+            ]);
+        }
+
+    }
+    /*$unused = array(-1);
+    $classes= Classes::all();
+    for ($i = 1;$i<=$classes->last()->id;$i++)
+        if (!isset($classes->find($i)->id) )
+            array_push($unused,$i);*/
+    //echo implode("|",$unused);
+    //return view('classes.edit');
+    //
+    //->with(['classes'=>Classes::all()]);
+    //return redirect('classes.index')->with(['classes'=>Classes::all()]);
+    //return redirect('classes');
+    //return redirect('classes.index')->with(['classes'=>Classes::all()]);
+    //return redirect('classes');
 }

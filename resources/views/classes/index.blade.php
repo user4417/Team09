@@ -1,76 +1,14 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('app')
 
-        <title>Laravel</title>
+@section('title', '顯示職業資料')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body> <h3><a href="{{route('villagers.index')}}">Villagers</a><br/></h3>
-    <h3><a href="{{route('classes.create')}}">Create</a></h3>
+@section('creepytown_contents')
+    <h3><a href="{{route('classes.create')}}">新增資料</a></h3><br/>
     <a href="{{route('classes.index')}}"> 全部</a>
     <a href="{{route('classes.easy')}}"> 輕鬆職業</a>
     <a href="{{route('classes.hard')}}"> 困難職業</a>
     <br/>
-    <table border="1">
+    <table border="1" bgcolor="white">
         <tr>
 
 
@@ -105,5 +43,4 @@
                 </tr>
             @endforeach
     </table>
-    </body>
-</html>
+@endsection
